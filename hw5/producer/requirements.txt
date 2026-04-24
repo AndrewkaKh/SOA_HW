@@ -1,0 +1,8 @@
+async-timeout==5.0.1
+confluent-kafka[avro]==2.6.1
+faker==37.1.0
+fastapi==0.115.6
+httpx==0.28.1
+pydantic-settings==2.7.0
+tenacity==9.0.0
+uvicorn==0.34.0

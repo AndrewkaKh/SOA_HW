@@ -1,0 +1,189 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "clickhouse-ds"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "clickhouse-ds"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "rawSql": "SELECT event_date, unique_users FROM agg_dau ORDER BY event_date",
+          "refId": "A"
+        }
+      ],
+      "title": "DAU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "clickhouse-ds"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "clickhouse-ds"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "rawSql": "SELECT event_date, conversion_ratio FROM agg_conversion ORDER BY event_date",
+          "refId": "A"
+        }
+      ],
+      "title": "View Conversion",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "clickhouse-ds"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "clickhouse-ds"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "rawSql": "SELECT movie_id, view_count, rank FROM agg_top_movies WHERE event_date = today() ORDER BY rank LIMIT 10",
+          "refId": "A"
+        }
+      ],
+      "title": "Top Movies Today",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "clickhouse-ds"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 4,
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "clickhouse-ds"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "rawSql": "SELECT toString(cohort_date) AS cohort, round(maxIf(retention_pct, day_of_life = 0), 2) AS `Day 0`, round(maxIf(retention_pct, day_of_life = 1), 2) AS `Day 1`, round(maxIf(retention_pct, day_of_life = 2), 2) AS `Day 2`, round(maxIf(retention_pct, day_of_life = 3), 2) AS `Day 3`, round(maxIf(retention_pct, day_of_life = 4), 2) AS `Day 4`, round(maxIf(retention_pct, day_of_life = 5), 2) AS `Day 5`, round(maxIf(retention_pct, day_of_life = 6), 2) AS `Day 6`, round(maxIf(retention_pct, day_of_life = 7), 2) AS `Day 7` FROM agg_retention GROUP BY cohort_date ORDER BY cohort_date DESC",
+          "refId": "A"
+        }
+      ],
+      "title": "Retention Cohorts",
+      "type": "table"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": [
+    "cinema",
+    "analytics"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-14d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Cinema Analytics",
+  "uid": "cinema-analytics",
+  "version": 1,
+  "weekStart": ""
+}

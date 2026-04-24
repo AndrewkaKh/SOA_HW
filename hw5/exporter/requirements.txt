@@ -1,0 +1,7 @@
+apscheduler==3.10.4
+asyncpg==0.30.0
+boto3==1.35.92
+fastapi==0.115.6
+pydantic-settings==2.7.0
+tenacity==9.0.0
+uvicorn==0.34.0
